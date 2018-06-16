@@ -1,11 +1,11 @@
-import React,{Component} from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom'
 
-import JSON from './db';
+import JSON from './db.json'
 
 // Components
 import Header from './components/header'
-import NewsList from './components/news_list.js'
+import NewsList from './components/news_list'
 
 class App extends Component {
 
@@ -14,13 +14,12 @@ class App extends Component {
   }
   
   render() {
-    return (
-      <div>
+    return <div>
         <Header />
-        <NewsList new={this.state.news}/>
-      </div>
-    )
+        <NewsList news={this.state.news}>
+          Helllllo
+        </NewsList>
+      </div>;
   }
 }
-
-ReactDOM.render(<App/>, document.querySelector('#root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
