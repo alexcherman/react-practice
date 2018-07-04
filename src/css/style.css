@@ -12,3 +12,9 @@ header {
 .news_item {
   background: #a23;
 }
+button {
+  display: block;
+  margin: 10px auto 0;
+  width: 100px;
+  height: 40px;
+}
