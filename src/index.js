@@ -1,47 +1,40 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom'
-
-import JSON from './db.json'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter, Route, Link, Switch} from 'react-router-dom';
 
 // Components
-import Header from './components/header'
-import NewsList from './components/news_list'
+import Home from './components/home';
+import Posts from './components/posts';
+import Profile from './components/profile';
+import PostsItem from './components/post_item';
+import Conditional from './components/conditional';
+import User from './components/user';
 
-class App extends Component {
-
-  state = {
-    news: JSON,
-    filtered: [],
-    showNews: false
-  }
-  
-  getKeyword = (event) => {
-    event.target.value = event.target.value + 'own';
-    let keyword = event.target.value;
-    let filtered = this.state.news.filter((item) => {
-      return item.title.indexOf(keyword) > -1
-    })
-    // console.log(filtered);
-    this.setState({
-      filtered
-    })
-  }
-  toggleNews = () => {
-    const show = this.state.showNews;
-    // console.log(show);
-    this.setState({
-      showNews: !show
-    })
-  }
-  
-  render() {
-    let newsFiltered = this.state.filtered;
-    let newsAll = this.state.news;
-    
-    return <div>
-        <Header click={this.toggleNews} keywords={this.getKeyword} />
-        <NewsList news={this.state.filtered.length === 0 ? newsAll : newsFiltered} />
-      </div>;
-  }
+const App = () => {
+  return <BrowserRouter>
+      <div>
+        <header>
+          <Link to="/">Home</Link> <br />
+          <Link to="/post">Posts</Link> <br />
+          <Link to="/conditional">Conditional</Link> <br />
+          <Link to={{
+            pathname: '/profile'
+          }}>Profile</Link> <br />
+          <Link to="/user">User</Link> <br />
+        </header>
+        <hr/>
+        <Switch>
+          <Route path="/post/:id/:username" component={PostsItem} />
+          <Route path="/post" component={Posts} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/conditional" component={Conditional} />
+          <Route path="/user" component={User} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </div>
+    </BrowserRouter>;
 }
-ReactDOM.render(<App/>, document.getElementById('root'));
+
+ReactDOM.render(
+  <App />,document.querySelector('#root')
+)
