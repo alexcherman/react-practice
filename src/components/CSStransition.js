@@ -1,16 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 
-import '../css/App.css';
+import "../css/App.css";
 
-class Fade extends Component{
-    render(){
-        return(
-            <div>
-                CSS TRANSITIONS
+class Fade extends Component {
+	state = {
+		show: true
+	};
+
+	showDiv = () => {
+		this.setState({
+			show: !this.state.show ? true : false
+		});
+	};
+	
+  render() {
+    return (
+      <div>
+				<CSSTransition
+					in={this.state.show}
+					timeout={5000}
+					classNames="square"
+				>
+						<div>
+                Hello
             </div>
-        )
-    }
+        </CSSTransition>
+        <div className="showDiv" onClick={() => this.showDiv()}>
+          Toggle
+        </div>
+      </div>
+    );
+  }
 }
-
 
 export default Fade;
